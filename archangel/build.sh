@@ -22,7 +22,7 @@ EOF
 
 "$ZIG" cc -target x86-windows-gnu -shared -O2 -std=c++17 -fno-exceptions -fno-rtti \
   -o "$OUT/DLL.dll" \
-  src/config.cpp src/keycheck.cpp src/lua_mta.cpp src/dx9hook.cpp src/menu.cpp src/esp.cpp src/dllmain.cpp src/cxa_guard_shim.cpp \
+  src/config.cpp src/keycheck.cpp src/lua_mta.cpp src/dx9hook.cpp src/menu.cpp src/esp.cpp src/authorization.cpp src/dllmain.cpp src/cxa_guard_shim.cpp \
   imgui/imgui.cpp imgui/imgui_draw.cpp imgui/imgui_tables.cpp imgui/imgui_widgets.cpp \
   imgui/backends/imgui_impl_dx9.cpp imgui/backends/imgui_impl_win32.cpp \
   -I. -Iimgui -Iimgui/backends \

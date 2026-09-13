@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(Archangel SHARED
     src/config.cpp
     src/keycheck.cpp
+    src/authorization.cpp
     src/lua_mta.cpp
     src/dx9hook.cpp
     src/menu.cpp

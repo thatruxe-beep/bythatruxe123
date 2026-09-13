@@ -3,30 +3,11 @@
 -- from the decompiled dump; this script re-implements the same pipeline:
 --   onClientRender -> collect players (screen pos via getScreenFromWorldPosition)
 --   -> ar_pushPlayer() (C side renders ESP) and apply features via MTA client API.
--- The original also had a start/stop toggle bound to a game key (startTaran /
--- _taran_enabled fragments are visible in the decompiled code) - kept here as
--- a keybind (default "f8", change in settings.cfg: tarankey = <key>).
+-- The cheat is active while injected; features are toggled from the ImGui menu.
 
 local me = localPlayer
-local enabled = true
-
-local function toggleTaran()
-    enabled = not enabled
-    if enabled then
-        outputChatBox("Archangel: ENABLED", 0, 200, 200, true)
-    else
-        outputChatBox("Archangel: DISABLED", 200, 200, 0, true)
-    end
-end
-
--- original fragment: bindKey("...", ..., "down", startTaran)
--- key name is configurable: settings.cfg -> tarankey = <mta key name> (default "f8")
-local taranKey = (type(archangel_taranKey) == "string") and archangel_taranKey or "f8"
-local ok = pcall(bindKey, taranKey, root, toggleTaran, "down")
-if not ok then pcall(bindKey, "f8", root, toggleTaran, "down") end
 
 local function frame()
-    if not enabled then return end
     ar_frameBegin()
 
     local mx, my, mz = getElementPosition(me)
@@ -82,4 +63,4 @@ local function frame()
 end
 
 addEventHandler("onClientRender", root, frame)
-outputChatBox("Archangel payload loaded (toggle: F8)", 0, 200, 200, true)
+outputChatBox("Archangel loaded", 0, 200, 200, true)

@@ -63,6 +63,8 @@ void ArchLog(const char* fmt, ...);
 const char* ArchDir(void);              // "<game dir>\Archangel\"
 void Config_Init(void);                 // reads Key.txt + keybinds.cfg + settings.cfg
 void Config_SaveKeybinds(void);
+void Config_SaveKey(void);              // writes g_cfg.key back to Key.txt
+int  ShowAuthorizationDialog(char* key, int keySize, const char* msg); // original "Authorization" dlg
 int  KeyCheck_Run(void);                // 1 valid, 0 invalid, -1 not configured/failed
 void LUA_Init(void);                    // find lua51.dll + MTA LuaState, inject payload (retries inside)
 int  LUA_IsReady(void);

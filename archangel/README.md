@@ -54,10 +54,11 @@
 1. Киньте `DLL.dll` туда, где лежит инжектор, и вставьте в MTA **вашим
    инжектором** (Discord.exe / любой manual-map инжектор).
 2. Играйте в **оконном режиме** (окно без рамки можно).
-3. Меню: по умолчанию **INSERT** (клавиша меняется в `Archangel\keybinds.cfg`:
-   `menu=45`).
-4. F8 — вкл/выкл чит (Lua-side toggle, как в оригинале; имя клавиши
-   `tarankey` в `settings.cfg`).
+3. При инжекте появляется диалог **Authorization** (как в оригинале:
+   `DialogBoxIndirectParamA`, EDIT с сохранённым ключом, OK/Cancel):
+   OK — ключ взят из поля (и записан в Key.txt), Cancel — ключ очищается.
+4. Меню: по умолчанию **DELETE** (как в оригинале; меняется в
+   `Archangel\keybinds.cfg`: `menu=46`).
 5. Лог: `Archangel\debug.log` (статусы: d3d9 hook, lua, key).
 
 Конфиги создаются в `<папка игры>\Archangel\`:

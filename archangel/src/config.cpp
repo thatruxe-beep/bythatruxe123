@@ -50,7 +50,7 @@ static void Dir_Build(void) {
     g_cfg.keyCheckUrl[0] = 0;
     g_cfg.key[0] = 0;
     g_cfg.menuOpen = 0;
-    g_cfg.keyMenu = VK_INSERT;
+    g_cfg.keyMenu = VK_DELETE;   // original menu key: Delete
     g_cfg.speedMul = 1.5f;
     for (int i = 0; i < FEAT_COUNT; i++) { g_cfg.keyFeat[i] = 0; g_cfg.feat[i] = 0; }
     g_cfg.feat[FEAT_WALLHACK] = 1;
@@ -126,5 +126,14 @@ void Config_SaveKeybinds(void) {
         (int)(g_cfg.speedMul * 10));
     fclose(f);
     ArchLog("keybinds saved: %s", p);
+}
+
+void Config_SaveKey(void) {
+    if (!g_cfg.keyFile[0] || !g_cfg.key[0]) return;
+    FILE* f = fopen(g_cfg.keyFile, "wb");
+    if (!f) return;
+    fputs(g_cfg.key, f);
+    fclose(f);
+    ArchLog("key saved: %s", g_cfg.keyFile);
 }
 

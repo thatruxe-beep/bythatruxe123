@@ -11,6 +11,18 @@ static DWORD WINAPI Worker(LPVOID) {
     ArchLog("=== Archangel worker started ===");
 
     Config_Init();
+
+    // original behavior on injection: "Authorization" dialog (FUN_10002c00)
+    // - message line, EDIT pre-filled with the key from Key.txt, OK/Cancel
+    int auth = ShowAuthorizationDialog(g_cfg.key, (int)sizeof(g_cfg.key), "Enter key:");
+    if (auth == 1) {
+        Config_SaveKey();   // store entered key back to Key.txt
+        ArchLog("worker: authorization OK");
+    } else {
+        g_cfg.key[0] = 0;   // original clears the key on cancel
+        ArchLog("worker: authorization cancelled - no key");
+    }
+
     int krc = KeyCheck_Run();
     g_keyValid = (krc == 1);
     if (krc == 0) ArchLog("worker: key REJECTED by server");
