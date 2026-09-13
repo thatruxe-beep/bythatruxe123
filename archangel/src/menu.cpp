@@ -187,7 +187,8 @@ static void CaptureUpdate(void) {
     for (int i = 0; i < 256; i++) {
         int now = (GetAsyncKeyState(i) & 0x8000) != 0;
         if (now && !prev[i]) {
-            g_cfg.keyFeat[g_capture] = i;
+            if (g_capture == 0) g_cfg.keyMenu = i;
+            else                g_cfg.keyFeat[g_capture - 1] = i;
             g_capture = -1;
             Config_SaveKeybinds();
             break;
@@ -249,9 +250,6 @@ static void TabKeys(void) {
             }
         }
         ImGui::PopStyleColor(2);
-        if (g_capture == r && r == 0) {
-            // menu key: Esc clears to Delete default
-        }
         if (r < FEAT_COUNT) {
             ImDrawList* dl = ImGui::GetWindowDrawList();
             ImVec2 p = ImGui::GetCursorScreenPos();
@@ -261,8 +259,8 @@ static void TabKeys(void) {
     }
     // Esc handling during capture
     if (g_capture >= 0 && (GetAsyncKeyState(VK_ESCAPE) & 0x8000)) {
-        if (g_capture == 0) g_cfg.keyMenu = VK_DELETE;
-        else g_cfg.keyFeat[g_capture] = 0;
+        if (g_capture == 0) g_cfg.keyMenu = VK_DELETE;   // back to default
+        else                g_cfg.keyFeat[g_capture - 1] = 0;
         g_capture = -1;
         Config_SaveKeybinds();
     }
