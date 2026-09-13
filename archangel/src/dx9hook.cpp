@@ -13,12 +13,14 @@
 #include <stdio.h>
 #include <string.h>
 
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 #include "backends/imgui_impl_dx9.h"
 #include "backends/imgui_impl_win32.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM, LPARAM);
 extern void Menu_Frame(void);
+extern void Menu_InitFonts(void);
 extern void ESP_Frame(void);
 void DX9_ImGuiInitDevice(IDirect3DDevice9* dev);
 
@@ -218,7 +220,9 @@ void DX9_ImGuiInitDevice(IDirect3DDevice9* dev) {
     ImGuiIO& io = ImGui::GetIO();
     io.IniFilename = NULL;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    // ImGui default font is embedded ProggyClean (matches original "ProggyClean.ttf")
+    // ImGui default font is embedded ProggyClean (matches original "ProggyClean.ttf");
+    // menu adds 15px/22px sizes from the same embedded TTF (before backend init!)
+    Menu_InitFonts();
     ImGui_ImplWin32_Init((void*)g_hwnd);
     if (ImGui_ImplDX9_Init(dev)) g_imguiInit = 1;
     ArchLog("imgui: initialized");

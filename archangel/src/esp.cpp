@@ -4,6 +4,7 @@
 #include "archangel.h"
 #include <stdio.h>
 
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"
 
 static const ImU32 c_box    = IM_COL32(255, 80,  80, 255);
